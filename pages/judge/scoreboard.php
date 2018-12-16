@@ -57,8 +57,7 @@ if( strtotime($contest_data['BEGIN']) > time() ){
 				$stmt->free_result();
 				$stmt->close();
 			} else die('Error while preparing SQL');
-			if( empty($scores[$pid][$qid]) ) $scores[$pid][$qid] = 0;
-			$scores[$pid]['SUM'] += $scores[$pid][$qid];
+			if( !empty($scores[$pid][$qid]) ) $scores[$pid]['SUM'] += $scores[$pid][$qid];
 		}
 	}
 
@@ -68,7 +67,7 @@ if( strtotime($contest_data['BEGIN']) > time() ){
 	arsort($rank);
 
 	// Render the scoreboard
-	echo '<table class="pure-table"><thead><tr><th></th>';
+	echo '<table class="pure-table pure-table-horizontal"><thead><tr><th></th>';
 	foreach( $questions as $title ) echo '<th>'.htmlentities($title).'</th>';
 	echo '</tr></thead><tbody>';
 	foreach( $rank as $pid => $value ){

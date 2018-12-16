@@ -15,3 +15,10 @@ Array.from(document.getElementsByTagName("textarea")).forEach(function(e) {
     });
     editor.content.innerHTML = content;
 });
+
+// Process score class
+Array.from(document.getElementsByClassName("score")).forEach(function(e){
+    if( isNaN(e.innerHTML) || e.innerHTML=="" ) return;
+    e.style.backgroundColor = "hsl("+Math.floor(e.innerHTML*1.2)+", 100%, 60%)";
+    e.style.color = "#222";
+});

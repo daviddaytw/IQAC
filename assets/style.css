@@ -1,4 +1,9 @@
 body{ color: #888; }
+a{
+	color: #0fa3a8;
+	text-decoration: none;
+}
+
 .menu-wrapper {
 	font-size: 20px;
 	border-bottom: 2px solid #ddd;

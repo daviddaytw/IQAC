@@ -70,7 +70,7 @@ function show_header($title,$menu_select=NULL){
 	<link rel="stylesheet" href="/assets/pell.min.css">
 </head>
 <body>
-	<div class="menu-wrapper pure-menu pure-menu-horizontal">
+	<div class="menu-wrapper pure-menu pure-menu-horizontal pure-menu-scrollable">
 		<a href="/" class="pure-menu-heading pure-menu-link"><?= htmlentities($title) ?></a>
 		<ul class="pure-menu-list">
 <?php
