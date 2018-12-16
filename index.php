@@ -73,6 +73,7 @@ if(isset($_SESSION['MENU'])){
 
 function show_footer(){
 ?>
+<footer> Code, Wiki and Discussion of IQAC is available at <a href="https://sourceforge.net/projects/iqac/" target="_blank">SourceForge</a> </footer>
 <script src="/assets/ui.js"></script>
 </body>
 </html>
