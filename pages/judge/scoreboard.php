@@ -1,4 +1,4 @@
-<?php
+<?
 if(!isset($_SESSION['CONTEST'])) die('No contest selected');
 
 show_header($_SESSION['CONTEST_NAME'] , 'ScoreBoard');
@@ -85,4 +85,4 @@ echo '</div>';
 <script>
 setTimeout(function(){ location = '' }, 20000);
 </script>
-<?php show_footer(); ?>
+<? show_footer(); ?>

@@ -1,4 +1,4 @@
-<?php show_header('Welcome, '.$_SESSION['NAME'] , 'Contests'); ?>
+<? show_header('Welcome, '.$_SESSION['NAME'] , 'Contests'); ?>
 <div class="pure-g panel">
 
 	<div class="pure-u-1"><h1>Contests that you're judge</h1></div>
@@ -14,7 +14,7 @@
 			</thead>
 
 			<tbody>
-<?php
+<?
 // Search and list the contest that user judge
 if ($stmt = $db->prepare("SELECT * FROM `Judges` WHERE JUDGE=?")) {
 	$stmt->bind_param("s",$_SESSION['ID']);
@@ -51,4 +51,4 @@ if ($stmt = $db->prepare("SELECT * FROM `Judges` WHERE JUDGE=?")) {
 		</table>
 	</div>
 </div>
-<?php show_footer(); ?>
+<? show_footer(); ?>

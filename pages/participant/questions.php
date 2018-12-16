@@ -1,6 +1,4 @@
-<?php
-if(!isset($_SESSION['CONTEST'])) die('No contest selected');
-
+<?
 if ($stmt = $db->prepare("SELECT * FROM `Contests` WHERE ID=?")) {
 	$stmt->bind_param("i",$_SESSION['CONTEST']);
 	$stmt->execute();
@@ -48,7 +46,7 @@ if( strtotime($contest_data['BEGIN']) > time() ){
 				<span class="pure-menu-heading">Question List</span>
 
 				<ul class="pure-menu-list">
-	<?php
+	<?
 	foreach( $questions as $id => $title ){
 		if($_GET['id'] == $id) echo '<li class="pure-menu-item pure-menu-selected">';
 		else echo '<li class="pure-menu-item">';
@@ -74,7 +72,7 @@ if( strtotime($contest_data['BEGIN']) > time() ){
 			</div>
 		</div>
 	</div>
-<?php
+<?
 }
 show_footer();
 ?>

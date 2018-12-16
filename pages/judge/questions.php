@@ -1,4 +1,4 @@
-<?php
+<?
 if(!isset($_SESSION['CONTEST'])) die('No contest selected');
 
 // Submit question
@@ -45,7 +45,7 @@ else show_header('Questions' , 'Questions');
 
 			<ul class="pure-menu-list">
 				<li class="pure-menu-item"><a href="?new" class="pure-menu-link">+ Add New...</a></li>
-<?php
+<?
 foreach( $questions as $id => $title ){
 	if($_GET['id'] == $id) echo '<li class="pure-menu-item pure-menu-selected">';
 	else echo '<li class="pure-menu-item">';
@@ -69,4 +69,4 @@ foreach( $questions as $id => $title ){
 		</div>
 	</div>
 </div>
-<?php show_footer(); ?>
+<? show_footer(); ?>

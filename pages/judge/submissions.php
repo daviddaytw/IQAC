@@ -1,4 +1,4 @@
-<?php
+<?
 if(!isset($_SESSION['CONTEST'])) die('No contest selected');
 
 show_header('Submissions' , 'Submissions');
@@ -48,7 +48,7 @@ if ($stmt = $db->prepare("SELECT * FROM `Questions` WHERE JUDGE=?")) {
 				</tr>
 			</thead>
 			<tbody>
-<?php
+<?
 // Get submissions of contest
 if ($result = $db->query("SELECT * FROM `Submissions` WHERE QUESTION IN (".implode(',',array_keys($questions)).") ORDER BY ID DESC LIMIT 20")) {
 	while( ($row=$result->fetch_assoc()) != NULL ){
@@ -73,7 +73,7 @@ if ($result = $db->query("SELECT * FROM `Submissions` WHERE QUESTION IN (".implo
 	</div>
 	<div class="pure-u-1-2">
 		<div class="panel">
-<?php
+<?
 if(isset($_GET['id'])){
 	// Get questions of submission
 	if ($stmt = $db->prepare("SELECT * FROM `Questions` WHERE ID=?")) {
@@ -99,10 +99,10 @@ if(isset($_GET['id'])){
 					<button type="submit" class="pure-button pure-button-primary">Submit</button>
 				</fieldset>
 			</form>
-<?php
+<?
 }
 ?>
 		</div>
 	</div>
 </div>
-<?php show_footer(); ?>
+<? show_footer(); ?>

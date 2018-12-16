@@ -1,4 +1,4 @@
-<?php
+<?
 // user select contest
 if(isset($_GET['contest'])){
 	if($_GET['contest'] == 'exit'){

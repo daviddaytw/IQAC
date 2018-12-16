@@ -1,6 +1,4 @@
-<?php
-if(!isset($_SESSION['CONTEST'])) die('No contest selected');
-
+<?
 show_header('Submissions' , 'Submissions');
 
 // Get questions of judge
@@ -27,7 +25,7 @@ if ($stmt = $db->prepare("SELECT * FROM `Questions` WHERE CONTEST=?")) {
 			</tr>
 		</thead>
 		<tbody>
-<?php
+<?
 // Get submissions of participant
 if ($stmt = $db->prepare("SELECT * FROM `Submissions` WHERE PARTICIPANT=? ORDER BY ID DESC LIMIT 20")) {
 	$stmt->bind_param("s",$_SESSION['ID']);
@@ -49,4 +47,4 @@ if ($stmt = $db->prepare("SELECT * FROM `Submissions` WHERE PARTICIPANT=? ORDER 
 		</tbody>
 	</table>
 </div>
-<?php show_footer(); ?>
+<? show_footer(); ?>

@@ -1,4 +1,4 @@
-<?php
+<?
 //Define api URL
 $authorizeURL = 'https://accounts.google.com/o/oauth2/auth';
 $tokenURL = 'https://oauth2.googleapis.com/token';

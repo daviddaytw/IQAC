@@ -1,4 +1,4 @@
-<?php show_header('Instant Q&A Contest'); ?>
+<? show_header('Instant Q&A Contest'); ?>
 <div style="text-align: center;">
 	<form class="pure-form pure-form-aligned" method="POST">
 		<fieldset>
@@ -18,4 +18,4 @@
 		</fieldset>
 	</form>
 </div>
-<?php show_footer(); ?>
+<? show_footer(); ?>

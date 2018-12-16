@@ -1,4 +1,4 @@
-<?php
+<?
 if(isset($_SESSION['CONTEST'])) show_header('Edit '.$_SESSION['CONTEST_NAME'] , 'Edit');
 else show_header('New Conteset' , 'Create Contest');
 
@@ -73,4 +73,4 @@ if(isset($_POST['name'])){
 		</fieldset>
 	</form>
 </div>
-<?php show_footer(); ?>
+<? show_footer(); ?>
