@@ -1,22 +1,8 @@
 <?
 /** CONFIGURATION SETUP START **/
-ini_set('display_errors',1);
-ini_set('default_charset', 'UTF-8');
+require('config.php');
 
 session_start();
-
-// Google OAuth Setup
-$OAUTH2_CLIENT_ID = '706789444156-lg7qu37o9j9a6pm5du3jcsdcrhbg0ggd.apps.googleusercontent.com';
-$OAUTH2_CLIENT_SECRET = 'Xxc6TFbTyty4EM7RifgFLKXz';
-
-// Database Setup
-// Change the following to setup for database
-$db = mysqli_connect('sql204.youp.ga','yuweb_22201769','LoveTaiwan','yuweb_22201769_iqac');
-if (!$db) {
-    echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
-    echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
-    die("Error: Unable to connect to MySQL.");
-}
 
 // Menus
 $MENUS = array(
