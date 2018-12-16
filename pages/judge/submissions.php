@@ -53,9 +53,8 @@ if ($stmt = $db->prepare("SELECT * FROM `Questions` WHERE JUDGE=?")) {
 if ($result = $db->query("SELECT * FROM `Submissions` WHERE QUESTION IN (".implode(',',array_keys($questions)).") ORDER BY ID DESC LIMIT 20")) {
 	while( ($row=$result->fetch_assoc()) != NULL ){
 		echo '<tr>';
-		if( is_null($row['SCORE']) ) echo '<td><a href="?id='.$row['ID'].'">'.$row['ID'].'</a></td>';
-		else echo '<td>'.$row['ID'].'</td>';
-		echo '<td class="score">'.( is_null($row['SCORE']) ? 'Pending' : $row['SCORE']).'</td>';
+		echo '<td>'.$row['ID'].'</td>';
+		echo '<td class="score">'.( is_null($row['SCORE']) ? '<a href="?id='.$row['ID'].'">Pending</a>' : $row['SCORE']).'</td>';
 		echo '<td>'.( empty($row['COMMENT']) ? '(No comment)' : $row['COMMENT']).'</td>';
 		echo '<td>'.$questions[$row['QUESTION']].'</td>';
 		echo '<td>'.$participants[$row['PARTICIPANT']].'</td>';
