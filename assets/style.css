@@ -10,3 +10,8 @@ a{
 	border-bottom: 2px solid #ddd;
 }
 .panel{ margin: 10px; }
+.large-button{
+	font-size: 250%;
+	margin: 10px;
+	font-weight: bold;
+}
