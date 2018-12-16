@@ -1,17 +1,4 @@
-<?
-// Get participants of contest
-$participants = array();
-if ($stmt = $db->prepare("SELECT * FROM `Participants` WHERE CONTEST=?")) {
-	$stmt->bind_param("i",$_SESSION['CONTEST']);
-	$stmt->execute();
-	$result = $stmt->get_result();
-	while( ($row=$result->fetch_assoc()) != NULL ) $participants[$row['ID']] = $row['NAME'];
-	$result->free();
-	$stmt->close();
-} else die('Error while preparing SQL');
-
-
-	
+<?	
 // Get questions of contest
 $questions = array();
 if ($stmt = $db->prepare("SELECT * FROM `Questions` WHERE CONTEST=?")) {
