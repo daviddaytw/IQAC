@@ -8,10 +8,12 @@ if(isset($_POST['name'])){
 		if ($stmt = $db->prepare("UPDATE `Contests` SET `NAME`=?,`BEGIN`=?,`FINISH`=? WHERE `ID`=?")) {
 			$begin = $_POST['beginDate'] . ' ' . $_POST['beginTime'];
 			$finish = $_POST['finishDate'] . ' ' . $_POST['finishTime'];
-			$stmt->bind_param("sssi",$_POST['name'],$begin,$finish,$_SESSION['CONTEST']);
+			$stmt->bind_param("sssi",$_POST['name'],$begin,$finish,$_SESSION['CONTEST']['ID']);
 			$stmt->execute();
 			$stmt->close();
 			$_SESSION['CONTEST']['NAME'] = $_POST['name'];
+			$_SESSION['CONTEST']['BEGIN'] = $begin;
+			$_SESSION['CONTEST']['FINISH'] = $finish;
 		} else die('Error while preparing SQL');
 	} else {
 		//Create contest
