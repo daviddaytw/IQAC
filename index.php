@@ -73,7 +73,7 @@ function show_header($title,$menu_select=NULL){
 </head>
 <body>
 	<div class="menu-wrapper pure-menu pure-menu-horizontal pure-menu-scrollable">
-		<a href="/" class="pure-menu-heading pure-menu-link"><?= htmlentities($title) ?></a>
+		<a href="/" class="pure-menu-heading pure-menu-link"><?= isset($_SESSION['CONTEST']) ? $_SESSION['CONTEST_NAME'] : 'Instant Q&A Contest' ?></a>
 		<ul class="pure-menu-list">
 <?php
 if(isset($_SESSION['MENU'])){

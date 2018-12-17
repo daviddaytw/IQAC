@@ -48,4 +48,3 @@ echo '</tbody></table>';
 <script>
 setTimeout(function(){ location = '' }, 20000);
 </script>
-<? show_footer(); ?>
