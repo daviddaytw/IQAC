@@ -6,14 +6,14 @@ if(isset($_POST['title'],$_POST['content'])){
 	if(isset($_GET['id'])){
 		// Update question
 		if ($stmt = $db->prepare("UPDATE `Questions` SET `TITLE`=?,`CONTENT`=?,`CONTEST`=? WHERE `ID`=?")) {
-			$stmt->bind_param("ssii",$_POST['title'],$_POST['content'],$_SESSION['CONTEST'],$_GET['id']);
+			$stmt->bind_param("ssii",$_POST['title'],$_POST['content'],$_SESSION['CONTEST']['ID'],$_GET['id']);
 			$stmt->execute();
 			$stmt->close();
 		} else die('Error while preparing SQL');
 	} else {
 		// New question
 		if ($stmt = $db->prepare("INSERT INTO `Questions` (`TITLE`,`CONTENT`,`CONTEST`,`JUDGE`) VALUES (?,?,?,?);")) {
-			$stmt->bind_param("ssis",$_POST['title'],$_POST['content'],$_SESSION['CONTEST'],$_SESSION['ID']);
+			$stmt->bind_param("ssis",$_POST['title'],$_POST['content'],$_SESSION['CONTEST']['ID'],$_SESSION['ID']);
 			$stmt->execute();
 			$stmt->close();
 		} else die('Error while preparing SQL');
@@ -23,7 +23,7 @@ if(isset($_POST['title'],$_POST['content'])){
 // Get questions
 $questions = array();
 if ($stmt = $db->prepare("SELECT * FROM `Questions` WHERE CONTEST=?")) {
-	$stmt->bind_param("i",$_SESSION['CONTEST']);
+	$stmt->bind_param("i",$_SESSION['CONTEST']['ID']);
 	$stmt->execute();
 	$result = $stmt->get_result();
 

@@ -1,20 +1,12 @@
 <?
 if(!isset($_SESSION['CONTEST'])) die('No contest selected');
 
-show_header($_SESSION['CONTEST_NAME'] , 'ScoreBoard');
-
-if ($stmt = $db->prepare("SELECT * FROM `Contests` WHERE ID=?")) {
-	$stmt->bind_param("i",$_SESSION['CONTEST']);
-	$stmt->execute();
-	$contest_data = $stmt->get_result()->fetch_assoc();
-	$stmt->free_result();
-	$stmt->close();
-} else die('Error while preparing SQL');
+show_header($_SESSION['CONTEST']['NAME'] , 'ScoreBoard');
 
 // Get participants of contest
 $participants = array();
 if ($stmt = $db->prepare("SELECT * FROM `Participants` WHERE CONTEST=?")) {
-	$stmt->bind_param("i",$_SESSION['CONTEST']);
+	$stmt->bind_param("i",$_SESSION['CONTEST']['ID']);
 	$stmt->execute();
 	$result = $stmt->get_result();
 	while( ($row=$result->fetch_assoc()) != NULL ) $participants[$row['ID']] = $row['NAME'];
@@ -23,11 +15,11 @@ if ($stmt = $db->prepare("SELECT * FROM `Participants` WHERE CONTEST=?")) {
 } else die('Error while preparing SQL');
 
 echo '<div class="panel">';
-echo '<h1>Contest&nbsp;ID:&nbsp;'.$_SESSION['CONTEST'].'</h1>';
-echo '<p>This contest start at '.$contest_data['BEGIN'].', finish at '.$contest_data['FINISH'].'</p>';
-if( strtotime($contest_data['BEGIN']) > time() ){
+echo '<h1>Contest&nbsp;ID:&nbsp;'.$_SESSION['CONTEST']['ID'].'</h1>';
+echo '<p>This contest start at '.$_SESSION['CONTEST']['BEGIN'].', finish at '.$_SESSION['CONTEST']['FINISH'].'</p>';
+if( strtotime($_SESSION['CONTEST']['BEGIN']) > time() ){
 	echo '<h2>Contest has not start yet!!</h2>';
-	echo '<h3 id="count_down">'.(strtotime($contest_data['BEGIN'])-time()).'</h3>';
+	echo '<h3 id="count_down">'.(strtotime($_SESSION['CONTEST']['BEGIN'])-time()).'</h3>';
 	echo '<div class="pure-g" style="text-align: center;">';
 	foreach($participants as $name){
 		echo '<div class="pure-u-1-3 pure-u-md-1-6"><p>'.htmlentities($name).'</p></div>';
@@ -37,7 +29,7 @@ if( strtotime($contest_data['BEGIN']) > time() ){
 	// Get questions of contest
 	$questions = array();
 	if ($stmt = $db->prepare("SELECT * FROM `Questions` WHERE CONTEST=?")) {
-		$stmt->bind_param("i",$_SESSION['CONTEST']);
+		$stmt->bind_param("i",$_SESSION['CONTEST']['ID']);
 		$stmt->execute();
 		$result = $stmt->get_result();
 		while( ($row=$result->fetch_assoc()) != NULL ) $questions[$row['ID']] = $row['TITLE'];

@@ -40,7 +40,7 @@ if(isset($_SESSION['TIMEZONE'])){
 	window.location = "?timezone="+encodeURI(Intl.DateTimeFormat().resolvedOptions().timeZone);
 </script>
 <?
-exit;
+	exit;
 }
 /** LOCALIZATION SETUP END **/
 
@@ -73,14 +73,13 @@ function show_header($title,$menu_select=NULL){
 </head>
 <body>
 	<div class="menu-wrapper pure-menu pure-menu-horizontal pure-menu-scrollable">
-		<a href="/" class="pure-menu-heading pure-menu-link"><?= isset($_SESSION['CONTEST']) ? $_SESSION['CONTEST_NAME'] : 'Instant Q&A Contest' ?></a>
+		<a href="/" class="pure-menu-heading pure-menu-link"><?= isset($_SESSION['CONTEST']) ? $_SESSION['CONTEST']['NAME'] : 'Instant Q&A Contest' ?></a>
 		<ul class="pure-menu-list">
-<?php
-if(isset($_SESSION['MENU'])){
+<?
+if(isset($_SESSION['MENU']))
 	foreach($MENUS[$_SESSION['MENU']] as $text => $url){
 		echo '<li class="pure-menu-item '.($menu_select == $text ? 'pure pure-menu-selected' : '' ).'"><a href="'.$url.'" class="pure-menu-link">'.$text.'</a></li>';
 	}
-}
 ?>
 		</ul>
 	</div>
@@ -93,6 +92,6 @@ function show_footer(){
 <script src="/assets/ui.js"></script>
 </body>
 </html>
-<?php
+<?
 }
 ?>

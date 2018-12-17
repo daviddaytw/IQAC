@@ -2,7 +2,7 @@
 // Get questions of contest
 $questions = array();
 if ($stmt = $db->prepare("SELECT * FROM `Questions` WHERE CONTEST=?")) {
-	$stmt->bind_param("i",$_SESSION['CONTEST']);
+	$stmt->bind_param("i",$_SESSION['CONTEST']['ID']);
 	$stmt->execute();
 	$result = $stmt->get_result();
 	while( ($row=$result->fetch_assoc()) != NULL ) $questions[$row['ID']] = $row['TITLE'];

@@ -22,11 +22,11 @@ if($_SESSION['gateway'] == 'participant'){
 		if ($stmt = $db->prepare("SELECT * FROM `Contests` WHERE ID=?")) {
 			$stmt->bind_param("i",$_POST['contest']);
 			$stmt->execute();
-			$contest_name = $stmt->get_result()->fetch_assoc()['NAME'];
+			$contest_info = $stmt->get_result()->fetch_assoc();
 			$stmt->free_result();
 			$stmt->close();
 		} else die('Error while preparing SQL');
-		if($contest_name == NULL) die("The contest you're trying to join do not exist.");
+		if($contest_info == NULL) die("The contest you're trying to join do not exist.");
 
 		// Check participant name conflict
 		if ($stmt = $db->prepare("SELECT * FROM `Participants` WHERE CONTEST=? AND NAME=?")) {
@@ -45,9 +45,8 @@ if($_SESSION['gateway'] == 'participant'){
 		
 		$_SESSION['NAME'] = $_POST['name'];
 		$_SESSION['ROLE'] = 'participant';
-		$_SESSION['CONTEST'] = $_POST['contest'];
+		$_SESSION['CONTEST'] = $contest_info;
 		$_SESSION['MENU'] = 'PARTICIPANT';
-		$_SESSION['CONTEST_NAME'] = $contest_name;
 		$_SESSION['ID'] = $db->insert_id;
 
 		header('Location: http://' . $_SERVER['HTTP_HOST']);

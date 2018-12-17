@@ -1,20 +1,12 @@
 <?
-if ($stmt = $db->prepare("SELECT * FROM `Contests` WHERE ID=?")) {
-	$stmt->bind_param("i",$_SESSION['CONTEST']);
-	$stmt->execute();
-	$contest_data = $stmt->get_result()->fetch_assoc();
-	$stmt->free_result();
-	$stmt->close();
-} else die('Error while preparing SQL');
-
-if( strtotime($contest_data['BEGIN']) > time() ){
+if( strtotime($_SESSION['CONTEST']['BEGIN']) > time() ){
 	show_header('Questions' , 'Questions');
 	echo '<h2>Contest has not start yet!!</h2>';
 } else {
 	// Get questions
 	$questions = array();
 	if ($stmt = $db->prepare("SELECT * FROM `Questions` WHERE CONTEST=?")) {
-		$stmt->bind_param("i",$_SESSION['CONTEST']);
+		$stmt->bind_param("i",$_SESSION['CONTEST']['ID']);
 		$stmt->execute();
 		$result = $stmt->get_result();
 

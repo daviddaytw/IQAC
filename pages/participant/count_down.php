@@ -1,6 +1,6 @@
 <?
 echo '<h2>Contest has not start yet!!</h2>';
-echo '<h3 id="count_down">'.(strtotime($contest_data['BEGIN'])-time()).'</h3>';
+echo '<h3 id="count_down">'.(strtotime($_SESSION['CONTEST']['BEGIN'])-time()).'</h3>';
 echo '<div class="pure-g" style="text-align: center;">';
 foreach($participants as $name) echo '<div class="pure-u-1-3 pure-u-md-1-6"><p>'.htmlentities($name).'</p></div>';
 echo '</div>';

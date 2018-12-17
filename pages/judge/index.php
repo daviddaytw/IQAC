@@ -10,21 +10,17 @@ if(isset($_GET['contest'])){
 			$stmt->bind_param("si",$_SESSION['ID'],$_GET['contest']);
 			$stmt->execute();
 
-			if($stmt->fetch()){
-				$_SESSION['CONTEST'] = $_GET['contest'];
-				$_SESSION['MENU'] = 'JUDGE_CONTEST';
-			}
+			if( !$stmt->fetch() ) die("You're not the judge of the contest");
 			$stmt->free_result();
 			$stmt->close();
 
 			// get contest name
 			if ($stmt = $db->prepare("SELECT * FROM `Contests` WHERE ID=?")) {
-				$stmt->bind_param("i",$_SESSION['CONTEST']);
+				$stmt->bind_param("i",$_GET['contest']);
 				$stmt->execute();
-				$result = $stmt->get_result();
-				if( $detail = $result->fetch_assoc() ) $_SESSION['CONTEST_NAME'] = $detail['NAME'];
-
-				$result->free();
+				$_SESSION['CONTEST'] = $stmt->get_result()->fetch_assoc();
+				$_SESSION['MENU'] = 'JUDGE_CONTEST';
+				$smtm->free_result();
 				$stmt->close();
 			} else die('Error while preparing SQL');
 		} else die('Error while preparing SQL');
