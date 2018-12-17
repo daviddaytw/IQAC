@@ -98,9 +98,11 @@ if(isset($_GET['id'])){
 					<button type="submit" class="pure-button pure-button-primary">Submit</button>
 				</fieldset>
 			</form>
-<?
-}
-?>
+<? } else { ?>
+<script>
+setTimeout(function(){ location = '' }, 5000);
+</script>
+<? } ?>
 		</div>
 	</div>
 </div>

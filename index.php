@@ -92,6 +92,4 @@ function show_footer(){
 <script src="/assets/ui.js"></script>
 </body>
 </html>
-<?
-}
-?>
+<? } ?>
