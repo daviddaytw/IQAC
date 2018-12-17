@@ -27,7 +27,7 @@ if($_SESSION['gateway'] == 'participant'){
 			$stmt->close();
 		} else die('Error while preparing SQL');
 		if($contest_info == NULL) die("The contest you're trying to join do not exist.");
-		if( strtotime($contest_info['FINISH']) < time()) die("The contest you're trying to already finished.");
+		if( strtotime($contest_info['FINISH']) < time()) die("The contest you're trying to join already finished.");
 
 		// Check participant name conflict
 		if ($stmt = $db->prepare("SELECT * FROM `Participants` WHERE CONTEST=? AND NAME=?")) {
