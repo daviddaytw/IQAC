@@ -32,7 +32,7 @@ foreach( $scores as $pid => $value ) $rank[$pid] = $value['SUM'];
 arsort($rank);
 
 // Render the scoreboard
-echo '<table class="pure-table pure-table-horizontal"><thead><tr><th></th>';
+echo '<div class="table-responsive"><table class="pure-table pure-table-horizontal"><thead><tr><th></th>';
 foreach( $questions as $title ) echo '<th>'.htmlentities($title).'</th>';
 echo '</tr></thead><tbody>';
 foreach( $rank as $pid => $value ){
@@ -43,7 +43,7 @@ foreach( $rank as $pid => $value ){
 	}
 	echo '</tr>';
 }
-echo '</tbody></table>';
+echo '</tbody></table></div>';
 ?>
 <script>
 setTimeout(function(){ location = '' }, 20000);

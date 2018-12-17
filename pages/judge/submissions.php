@@ -36,7 +36,7 @@ if ($stmt = $db->prepare("SELECT * FROM `Questions` WHERE JUDGE=?")) {
 ?>
 
 <div class="pure-g panel">
-	<div class="pure-u-1-2">
+	<div class="pure-u-1-2 table-responsive">
 		<table class="pure-table">
 			<thead>
 				<tr>

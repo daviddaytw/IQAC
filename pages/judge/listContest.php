@@ -2,7 +2,7 @@
 <div class="pure-g panel">
 
 	<div class="pure-u-1"><h1>Contests that you're judge</h1></div>
-	<div class="pure-u-1">
+	<div class="pure-u-1 table-responsive">
 		<table class="pure-table">
 			<thead>
 				<tr>

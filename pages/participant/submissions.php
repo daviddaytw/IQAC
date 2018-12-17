@@ -13,7 +13,7 @@ if ($stmt = $db->prepare("SELECT * FROM `Questions` WHERE CONTEST=?")) {
 } else die('Error while preparing SQL');
 ?>
 
-<div class="panel">
+<div class="panel table-responsive">
 	<table class="pure-table">
 		<thead>
 			<tr>

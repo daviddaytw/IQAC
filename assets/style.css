@@ -15,3 +15,7 @@ a{
 	margin: 10px;
 	font-weight: bold;
 }
+.table-responsive {
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+}
