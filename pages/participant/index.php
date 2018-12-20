@@ -15,8 +15,8 @@ if ($stmt = $db->prepare("SELECT * FROM `Participants` WHERE CONTEST=?")) {
 echo '<div class="panel">';
 echo '<p>This contest start at '.$_SESSION['CONTEST']['BEGIN'].', finish at '.$_SESSION['CONTEST']['FINISH'].'</p>';
 
-if( strtotime($_SESSION['CONTEST']['BEGIN']) > time() ) require('count_down.php');
-else require('scoreboard.php');
+if( strtotime($_SESSION['CONTEST']['BEGIN']) > time() ) require('./pages/general/count_down.php');
+else require('./pages/general/scoreboard.php');
 
 echo '</div>';
 ?>
