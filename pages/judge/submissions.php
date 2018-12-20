@@ -1,5 +1,5 @@
 <?
-if(!isset($_SESSION['CONTEST'])) die('No contest selected');
+if(!isset($CONTEST_INFO)) die('No contest selected');
 
 show_header('Submissions' , 'Submissions');
 
@@ -10,12 +10,14 @@ if(isset($_GET['id'],$_POST['score'],$_POST['comment'])){
 		$stmt->execute();
 		$stmt->close();
 	} else die('Error while preparing SQL');
+	header('Location: /submissions');
+	exit;
 }
 
 // Get participants of contest
 $participants = array();
 if ($stmt = $db->prepare("SELECT * FROM `Participants` WHERE CONTEST=?")) {
-	$stmt->bind_param("i",$_SESSION['CONTEST']);
+	$stmt->bind_param("i",$CONTEST_INFO['ID']);
 	$stmt->execute();
 	$result = $stmt->get_result();
 	while( ($row=$result->fetch_assoc()) != NULL ) $participants[$row['ID']] = $row['NAME'];
@@ -25,8 +27,8 @@ if ($stmt = $db->prepare("SELECT * FROM `Participants` WHERE CONTEST=?")) {
 
 // Get questions of judge
 $questions = array();
-if ($stmt = $db->prepare("SELECT * FROM `Questions` WHERE JUDGE=?")) {
-	$stmt->bind_param("s",$_SESSION['ID']);
+if ($stmt = $db->prepare("SELECT * FROM `Questions` WHERE JUDGE=? AND CONTEST=?")) {
+	$stmt->bind_param("si",$_SESSION['ID'],$CONTEST_INFO['ID']);
 	$stmt->execute();
 	$result = $stmt->get_result();
 	while( ($row=$result->fetch_assoc()) != NULL ) $questions[$row['ID']] = $row['TITLE'];

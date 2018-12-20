@@ -30,13 +30,13 @@ if ($stmt = $db->prepare("SELECT * FROM `Judges` WHERE JUDGE=?")) {
 		if ($stmt2 = $db->prepare("SELECT * FROM `Contests` WHERE ID=?")) {
 			$stmt2->bind_param("i",$row['CONTEST']);
 			$stmt2->execute();
-			$contest_search = $stmt2->get_result();
-			if( $detail = $contest_search->fetch_assoc() ){
+			$CONTEST_INFO_search = $stmt2->get_result();
+			if( $detail = $CONTEST_INFO_search->fetch_assoc() ){
 				echo '<td><a href="?contest='.$row['CONTEST'].'">'.$detail['NAME'].'</a></td>';
 				echo '<td>'.$detail['BEGIN'].'</td>';
 				echo '<td>'.$detail['FINISH'].'</td>';
 			}
-			$contest_search->free();
+			$CONTEST_INFO_search->free();
 			$stmt2->close();
 		} else die('Error while preparing SQL');
 		

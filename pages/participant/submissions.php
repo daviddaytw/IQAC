@@ -4,7 +4,7 @@ show_header('Submissions' , 'Submissions');
 // Get questions of judge
 $questions = array();
 if ($stmt = $db->prepare("SELECT * FROM `Questions` WHERE CONTEST=?")) {
-	$stmt->bind_param("s",$_SESSION['CONTEST']['ID']);
+	$stmt->bind_param("s",$CONTEST_INFO['ID']);
 	$stmt->execute();
 	$result = $stmt->get_result();
 	while( ($row=$result->fetch_assoc()) != NULL ) $questions[$row['ID']] = $row['TITLE'];

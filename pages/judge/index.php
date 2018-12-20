@@ -12,24 +12,26 @@ if(isset($_GET['contest'])){
 			if( !$stmt->fetch() ) die("You're not the judge of the contest");
 			$stmt->close();
 
-			// get contest name
+			// get contest information
 			if ($stmt = $db->prepare("SELECT * FROM `Contests` WHERE ID=?")) {
 				$stmt->bind_param("i",$_GET['contest']);
 				$stmt->execute();
-				$_SESSION['CONTEST'] = $stmt->get_result()->fetch_assoc();
+				$_SESSION['CONTEST'] = $stmt->get_result()->fetch_assoc()['ID'];
 				$_SESSION['MENU'] = 'JUDGE_CONTEST';
 				$stmt->free_result();
 				$stmt->close();
 			} else die('Error while preparing SQL');
 		} else die('Error while preparing SQL');
 	}
+	header('Location: /');
+	exit;
 }
 
-if(isset($_SESSION['CONTEST'])){
+if(isset($CONTEST_INFO)){
 	// Get participants of contest
 	$participants = array();
 	if ($stmt = $db->prepare("SELECT * FROM `Participants` WHERE CONTEST=?")) {
-		$stmt->bind_param("i",$_SESSION['CONTEST']['ID']);
+		$stmt->bind_param("i",$CONTEST_INFO['ID']);
 		$stmt->execute();
 		$result = $stmt->get_result();
 		while( ($row=$result->fetch_assoc()) != NULL ) $participants[$row['ID']] = $row['NAME'];
@@ -37,11 +39,11 @@ if(isset($_SESSION['CONTEST'])){
 		$stmt->close();
 	} else die('Error while preparing SQL');
 
-	show_header($_SESSION['CONTEST']['NAME'] , 'ScoreBoard');
+	show_header($CONTEST_INFO['NAME'] , 'ScoreBoard');
 	echo '<div class="panel">';
-	echo '<p>This contest start at '.$_SESSION['CONTEST']['BEGIN'].', finish at '.$_SESSION['CONTEST']['FINISH'].'</p>';
+	echo '<p>This contest start at '.$CONTEST_INFO['BEGIN'].', finish at '.$CONTEST_INFO['FINISH'].'</p>';
 	
-	if( strtotime($_SESSION['CONTEST']['BEGIN']) > time() ) require('./pages/general/count_down.php');
+	if( strtotime($CONTEST_INFO['BEGIN']) > time() ) require('./pages/general/count_down.php');
 	else require('./pages/general/scoreboard.php');
 	
 	echo '</div>';

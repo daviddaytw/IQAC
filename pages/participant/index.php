@@ -1,10 +1,10 @@
 <?
-show_header($_SESSION['CONTEST']['NAME'] , 'ScoreBoard');
+show_header($CONTEST_INFO['NAME'] , 'ScoreBoard');
 
 // Get participants of contest
 $participants = array();
 if ($stmt = $db->prepare("SELECT * FROM `Participants` WHERE CONTEST=?")) {
-	$stmt->bind_param("i",$_SESSION['CONTEST']['ID']);
+	$stmt->bind_param("i",$CONTEST_INFO['ID']);
 	$stmt->execute();
 	$result = $stmt->get_result();
 	while( ($row=$result->fetch_assoc()) != NULL ) $participants[$row['ID']] = $row['NAME'];
@@ -13,9 +13,9 @@ if ($stmt = $db->prepare("SELECT * FROM `Participants` WHERE CONTEST=?")) {
 } else die('Error while preparing SQL');
 
 echo '<div class="panel">';
-echo '<p>This contest start at '.$_SESSION['CONTEST']['BEGIN'].', finish at '.$_SESSION['CONTEST']['FINISH'].'</p>';
+echo '<p>This contest start at '.$CONTEST_INFO['BEGIN'].', finish at '.$CONTEST_INFO['FINISH'].'</p>';
 
-if( strtotime($_SESSION['CONTEST']['BEGIN']) > time() ) require('./pages/general/count_down.php');
+if( strtotime($CONTEST_INFO['BEGIN']) > time() ) require('./pages/general/count_down.php');
 else require('./pages/general/scoreboard.php');
 
 echo '</div>';

@@ -44,6 +44,16 @@ if(isset($_SESSION['TIMEZONE'])){
 }
 /** LOCALIZATION SETUP END **/
 
+/** Get Contest Information if user is in a contest**/
+if(isset($_SESSION['CONTEST'])){
+	if ($stmt = $db->prepare("SELECT * FROM `Contests` WHERE ID=?")) {
+		$stmt->bind_param("i",$_SESSION['CONTEST']);
+		$stmt->execute();
+		$CONTEST_INFO = $stmt->get_result()->fetch_assoc();
+		$stmt->free_result();
+		$stmt->close();
+	} else die('Error while preparing SQL'); 
+}
 
 // Remove extension and set index if not set
 $REQUEST_CODE = ( empty($_GET['page']) ? "index" : str_replace('/','',explode(".",$_GET['page'])[0]) );
@@ -73,7 +83,7 @@ function show_header($title,$menu_select=NULL){
 </head>
 <body>
 	<div class="menu-wrapper pure-menu pure-menu-horizontal pure-menu-scrollable">
-		<a href="/" class="pure-menu-heading pure-menu-link"><?= isset($_SESSION['CONTEST']) ? $_SESSION['CONTEST']['NAME'] : 'Instant Q&A Contest' ?></a>
+		<a href="/" class="pure-menu-heading pure-menu-link"><?= isset($CONTEST_INFO) ? $CONTEST_INFO['NAME'] : 'Instant Q&A Contest' ?></a>
 		<ul class="pure-menu-list">
 <?
 if(isset($_SESSION['MENU']))

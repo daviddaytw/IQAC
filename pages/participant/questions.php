@@ -1,12 +1,12 @@
 <?
-if( strtotime($_SESSION['CONTEST']['BEGIN']) > time() ){
+if( strtotime($CONTEST_INFO['BEGIN']) > time() ){
 	show_header('Questions' , 'Questions');
 	echo '<h2>Contest has not start yet!!</h2>';
 } else {
 	// Get questions
 	$questions = array();
 	if ($stmt = $db->prepare("SELECT * FROM `Questions` WHERE CONTEST=?")) {
-		$stmt->bind_param("i",$_SESSION['CONTEST']['ID']);
+		$stmt->bind_param("i",$CONTEST_INFO['ID']);
 		$stmt->execute();
 		$result = $stmt->get_result();
 
@@ -28,6 +28,8 @@ if( strtotime($_SESSION['CONTEST']['BEGIN']) > time() ){
 			$stmt->execute();
 			$stmt->close();
 		} else die('Error while preparing SQL');
+		header('Location: /submissions');
+		exit;
 	}
 
 	show_header($questions[$_GET['id']] , 'Questions');

@@ -22,12 +22,12 @@ if($_SESSION['gateway'] == 'participant'){
 		if ($stmt = $db->prepare("SELECT * FROM `Contests` WHERE ID=?")) {
 			$stmt->bind_param("i",$_POST['contest']);
 			$stmt->execute();
-			$contest_info = $stmt->get_result()->fetch_assoc();
+			$CONTEST_INFO_INFO = $stmt->get_result()->fetch_assoc();
 			$stmt->free_result();
 			$stmt->close();
 		} else die('Error while preparing SQL');
-		if($contest_info == NULL) die("The contest you're trying to join do not exist.");
-		if( strtotime($contest_info['FINISH']) < time()) die("The contest you're trying to join already finished.");
+		if($CONTEST_INFO_INFO == NULL) die("The contest you're trying to join do not exist.");
+		if( strtotime($CONTEST_INFO_INFO['FINISH']) < time()) die("The contest you're trying to join already finished.");
 
 		// Check participant name conflict
 		if ($stmt = $db->prepare("SELECT * FROM `Participants` WHERE CONTEST=? AND NAME=?")) {
@@ -46,7 +46,7 @@ if($_SESSION['gateway'] == 'participant'){
 		
 		$_SESSION['NAME'] = $_POST['name'];
 		$_SESSION['ROLE'] = 'participant';
-		$_SESSION['CONTEST'] = $contest_info;
+		$_SESSION['CONTEST'] = $CONTEST_INFO_INFO['ID'];
 		$_SESSION['MENU'] = 'PARTICIPANT';
 		$_SESSION['ID'] = $db->insert_id;
 

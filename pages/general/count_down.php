@@ -1,7 +1,7 @@
 <?
-if($_SESSION['ROLE'] == 'judge') echo '<h1>Contest&nbsp;ID:&nbsp;'.$_SESSION['CONTEST']['ID'].'</h1>';
+if($_SESSION['ROLE'] == 'judge') echo '<h1>Contest&nbsp;ID:&nbsp;'.$CONTEST_INFO['ID'].'</h1>';
 echo '<h1>Contest has not start yet!!</h2>';
-echo '<h2 id="count_down">'.(strtotime($_SESSION['CONTEST']['BEGIN'])-time()).'</h2>';
+echo '<h2 id="count_down">'.(strtotime($CONTEST_INFO['BEGIN'])-time()).'</h2>';
 echo '<div class="pure-g" style="text-align: center;">';
 foreach($participants as $name) echo '<div class="pure-u-1-3 pure-u-md-1-6"><p>'.htmlentities($name).'</p></div>';
 echo '</div>';

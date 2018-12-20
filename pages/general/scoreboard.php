@@ -2,7 +2,7 @@
 // Get questions of contest
 $questions = array();
 if ($stmt = $db->prepare("SELECT * FROM `Questions` WHERE CONTEST=?")) {
-	$stmt->bind_param("i",$_SESSION['CONTEST']['ID']);
+	$stmt->bind_param("i",$CONTEST_INFO['ID']);
 	$stmt->execute();
 	$result = $stmt->get_result();
 	while( ($row=$result->fetch_assoc()) != NULL ) $questions[$row['ID']] = $row['TITLE'];
@@ -32,8 +32,8 @@ foreach( $scores as $pid => $value ) $rank[$pid] = $value['SUM'];
 arsort($rank);
 
 // Render the scoreboard
-if($_SESSION['ROLE'] == 'judge') echo '<h1>Contest&nbsp;ID:&nbsp;'.$_SESSION['CONTEST']['ID'].'</h1>';
-if( strtotime($_SESSION['CONTEST']['FINISH']) < time() ) echo '<h2>This contest had finished!!</h2>';
+if($_SESSION['ROLE'] == 'judge') echo '<h1>Contest&nbsp;ID:&nbsp;'.$CONTEST_INFO['ID'].'</h1>';
+if( strtotime($CONTEST_INFO['FINISH']) < time() ) echo '<h2>This contest had finished!!</h2>';
 
 echo '<div class="table-responsive"><table class="pure-table pure-table-horizontal"><thead><tr><th></th>';
 foreach( $questions as $title ) echo '<th>'.htmlentities($title).'</th>';
