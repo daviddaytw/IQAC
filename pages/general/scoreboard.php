@@ -32,8 +32,8 @@ foreach( $scores as $pid => $value ) $rank[$pid] = $value['SUM'];
 arsort($rank);
 
 // Render the scoreboard
-if($_SESSION['ROLE'] == 'judge') echo '<h1>Contest&nbsp;ID:&nbsp;'.$CONTEST_INFO['ID'].'</h1>';
-if( strtotime($CONTEST_INFO['FINISH']) < time() ) echo '<h2>This contest had finished!!</h2>';
+if( strtotime($CONTEST_INFO['FINISH']) < time() ) echo '<h1>This contest had finished!!</h1>';
+if($_SESSION['ROLE'] == 'judge') echo '<h2>Contest&nbsp;ID:&nbsp;'.$CONTEST_INFO['ID'].'</h2>';
 
 echo '<div class="table-responsive"><table class="pure-table pure-table-horizontal"><thead><tr><th></th>';
 foreach( $questions as $title ) echo '<th>'.htmlentities($title).'</th>';
