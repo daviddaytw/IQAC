@@ -7,7 +7,7 @@ $access_token = false;
 
 if(isset($_SESSION['ID'])){
 	session_unset();
-	header('Location: http://' . $_SERVER['HTTP_HOST']);
+	header('Location: https://' . $_SERVER['HTTP_HOST']);
 	exit;
 }
 
@@ -50,7 +50,7 @@ if($_SESSION['gateway'] == 'participant'){
 		$_SESSION['MENU'] = 'PARTICIPANT';
 		$_SESSION['ID'] = $db->insert_id;
 
-		header('Location: http://' . $_SERVER['HTTP_HOST']);
+		header('Location: https://' . $_SERVER['HTTP_HOST']);
 		exit; 
 	} else {
 		require('participant/register.php');
@@ -64,7 +64,7 @@ if($_SESSION['gateway'] == 'judge'){
 		$token = apiRequest($tokenURL, array(
 			'client_id' => $OAUTH2_CLIENT_ID,
 			'client_secret' => $OAUTH2_CLIENT_SECRET,
-			'redirect_uri' => "http://$_SERVER[SERVER_NAME]/auth",
+			'redirect_uri' => "https://$_SERVER[SERVER_NAME]/auth",
 			'grant_type' => 'authorization_code',
 			'code' => $_GET['code']
 		));
@@ -78,13 +78,13 @@ if($_SESSION['gateway'] == 'judge'){
 		$_SESSION['MENU'] = 'JUDGE_DEFAULT';
 		unset($_SESSION['gateway']);
 
-		header('Location: http://' . $_SERVER['HTTP_HOST']);
+		header('Location: https://' . $_SERVER['HTTP_HOST']);
 		exit; 
 	} else{
 		//Redirect User to Google login page
 		$params = array(
 			'client_id' => $OAUTH2_CLIENT_ID,
-			'redirect_uri' => "http://$_SERVER[SERVER_NAME]/auth",
+			'redirect_uri' => "https://$_SERVER[SERVER_NAME]/auth",
 			'response_type' => 'code',
 			'scope' => 'https://www.googleapis.com/auth/userinfo.profile'
 		);
