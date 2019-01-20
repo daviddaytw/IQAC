@@ -6,5 +6,5 @@ Although contributing is encouraged, it's better to discuss what you want to con
 2. Import `db_strucutre.sql` to your MySQL.
 3. Download or clone the [repostiory](https://sourceforge.net/p/iqac/code/)
 4. Rename `config.sample`  to `config.php` and edit
-5. Upload to your web server
-
+5. Remove 2 rows below the comment `# Disable hotlinking`
+6. Upload to your web server

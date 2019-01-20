@@ -10,6 +10,10 @@ DirectoryIndex	index.php
 	
 	RewriteBase	/
 	
+	# Disable hotlinking
+	RewriteCond %{HTTP_REFERER} !^$
+	RewriteCond %{HTTP_REFERER} !^http://(www.)?iqac.is-great.net(/)?.*$ [NC]
+	
 	# Direct access for assets, robots.txt, sitemap.xml
 	RewriteRule	^(assets|robots\.txt|sitemap\.xml) - [L]
 	
