@@ -30,16 +30,11 @@ $MENUS = array(
 /** CONFIGURATION SETUP END **/
 
 /** LOCALIZATION SETUP START**/
-if(isset($_GET['timezone'])){
-	$_SESSION['TIMEZONE'] = $_GET['timezone'];
-}
+if(isset($_GET['timezone'])) $_SESSION['TIMEZONE'] = $_GET['timezone'];
 if(isset($_SESSION['TIMEZONE'])){
 	date_default_timezone_set($_SESSION['TIMEZONE']);
-} else {?>
-<script>
-	window.location = "?timezone="+encodeURI(Intl.DateTimeFormat().resolvedOptions().timeZone);
-</script>
-<?
+} else {
+	echo '<script>window.location = "?timezone="+encodeURI(Intl.DateTimeFormat().resolvedOptions().timeZone);</script>';
 	exit;
 }
 /** LOCALIZATION SETUP END **/

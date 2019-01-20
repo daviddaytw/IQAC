@@ -49,5 +49,5 @@ foreach( $rank as $pid => $value ){
 echo '</tbody></table></div>';
 ?>
 <script>
-setTimeout(function(){ location = '' }, 20000);
+	setTimeout(function(){ location = '' }, 20000);
 </script>

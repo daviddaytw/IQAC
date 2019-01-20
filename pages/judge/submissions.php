@@ -50,62 +50,62 @@ if ($stmt = $db->prepare("SELECT * FROM `Questions` WHERE JUDGE=? AND CONTEST=?"
 				</tr>
 			</thead>
 			<tbody>
-<?
+				<?
 // Get submissions of contest
-if ($result = $db->query("SELECT * FROM `Submissions` WHERE QUESTION IN (".implode(',',array_keys($questions)).") ORDER BY ID DESC LIMIT 20")) {
-	while( ($row=$result->fetch_assoc()) != NULL ){
-		echo '<tr>';
-		echo '<td>'.$row['ID'].'</td>';
-		echo '<td class="score">'.( is_null($row['SCORE']) ? '<a href="?id='.$row['ID'].'">Pending</a>' : $row['SCORE']).'</td>';
-		echo '<td>'.( empty($row['COMMENT']) ? '(No comment)' : $row['COMMENT']).'</td>';
-		echo '<td>'.$questions[$row['QUESTION']].'</td>';
-		echo '<td>'.$participants[$row['PARTICIPANT']].'</td>';
-		echo '</tr>';
-		if($_GET['id'] == $row['ID']){
-			$qid = $row['QUESTION'];
-			$answer = $row['CONTENT'];
-		}
-	}
-	$result->free();
-} else die('Error while query SQL');
-?>
+				if ($result = $db->query("SELECT * FROM `Submissions` WHERE QUESTION IN (".implode(',',array_keys($questions)).") ORDER BY ID DESC LIMIT 20")) {
+					while( ($row=$result->fetch_assoc()) != NULL ){
+						echo '<tr>';
+						echo '<td>'.$row['ID'].'</td>';
+						echo '<td class="score">'.( is_null($row['SCORE']) ? '<a href="?id='.$row['ID'].'">Pending</a>' : $row['SCORE']).'</td>';
+						echo '<td>'.( empty($row['COMMENT']) ? '(No comment)' : $row['COMMENT']).'</td>';
+						echo '<td>'.$questions[$row['QUESTION']].'</td>';
+						echo '<td>'.$participants[$row['PARTICIPANT']].'</td>';
+						echo '</tr>';
+						if($_GET['id'] == $row['ID']){
+							$qid = $row['QUESTION'];
+							$answer = $row['CONTENT'];
+						}
+					}
+					$result->free();
+				} else die('Error while query SQL');
+				?>
 			</tbody>
 		</table>
 	</div>
 	<div class="pure-u-1-2">
 		<div class="panel">
-<?
-if(isset($_GET['id'])){
+			<?
+			if(isset($_GET['id'])):
 	// Get questions of submission
-	if ($stmt = $db->prepare("SELECT * FROM `Questions` WHERE ID=?")) {
-		$stmt->bind_param("i",$qid);
-		$stmt->execute();
-		$content = $stmt->get_result()->fetch_assoc()['CONTENT'];
-		$stmt->free_result();
-		$stmt->close();
-	} else die('Error while preparing SQL');
-?>
-			<h1><?= $questions[$qid] ?></h1>
-			<div><?= $content ?></div>
-			<h1>Participant's Answer</h1>
-			<?= $answer ?>
+				if ($stmt = $db->prepare("SELECT * FROM `Questions` WHERE ID=?")) {
+					$stmt->bind_param("i",$qid);
+					$stmt->execute();
+					$content = $stmt->get_result()->fetch_assoc()['CONTENT'];
+					$stmt->free_result();
+					$stmt->close();
+				} else die('Error while preparing SQL');
+				?>
+				<h1><?= $questions[$qid] ?></h1>
+				<div><?= $content ?></div>
+				<h1>Participant's Answer</h1>
+				<?= $answer ?>
 
-			<form class="pure-form pure-form-stacked" method="POST">
-				<fieldset>
-					<legend>Judge Area</legend>
-					<label for="score">Score</label>
-					<input id="score" name="score" type="number" min="0" max="100">
-					<label for="comment">Comment</label>
-					<textarea id="comment" name="comment"></textarea>
-					<button type="submit" class="pure-button pure-button-primary">Submit</button>
-				</fieldset>
-			</form>
-<? } else { ?>
-<script>
-setTimeout(function(){ location = '' }, 5000);
-</script>
-<? } ?>
+				<form class="pure-form pure-form-stacked" method="POST">
+					<fieldset>
+						<legend>Judge Area</legend>
+						<label for="score">Score</label>
+						<input id="score" name="score" type="number" min="0" max="100">
+						<label for="comment">Comment</label>
+						<textarea id="comment" name="comment"></textarea>
+						<button type="submit" class="pure-button pure-button-primary">Submit</button>
+					</fieldset>
+				</form>
+				<? else: ?>
+					<script>
+						setTimeout(function(){ location = '' }, 5000);
+					</script>
+				<? endif; ?>
+			</div>
 		</div>
 	</div>
-</div>
-<? show_footer(); ?>
+	<? show_footer(); ?>

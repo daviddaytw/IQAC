@@ -25,25 +25,25 @@ if ($stmt = $db->prepare("SELECT * FROM `Questions` WHERE CONTEST=?")) {
 			</tr>
 		</thead>
 		<tbody>
-<?
+			<?
 // Get submissions of participant
-if ($stmt = $db->prepare("SELECT * FROM `Submissions` WHERE PARTICIPANT=? ORDER BY ID DESC LIMIT 20")) {
-	$stmt->bind_param("s",$_SESSION['ID']);
-	$stmt->execute();
-	$result = $stmt->get_result();
-	while( ($row=$result->fetch_assoc()) != NULL ){
-		echo '<tr>';
-		echo '<td>'.$row['ID'].'</td>';
-		echo '<td>'.$questions[$row['QUESTION']].'</td>';
-		echo '<td>'.$row['CONTENT'].'</td>';
-		echo '<td class="score">'.( is_null($row['SCORE']) ? 'Pending' : $row['SCORE']).'</td>';
-		echo '<td>'.( empty($row['COMMENT']) ? '(No comment)' : $row['COMMENT']).'</td>';
-		echo '</tr>';
-	}
-	$result->free();
-	$stmt->close();
-} else die('Error while preparing SQL');
-?>
+			if ($stmt = $db->prepare("SELECT * FROM `Submissions` WHERE PARTICIPANT=? ORDER BY ID DESC LIMIT 20")) {
+				$stmt->bind_param("s",$_SESSION['ID']);
+				$stmt->execute();
+				$result = $stmt->get_result();
+				while( ($row=$result->fetch_assoc()) != NULL ){
+					echo '<tr>';
+					echo '<td>'.$row['ID'].'</td>';
+					echo '<td>'.$questions[$row['QUESTION']].'</td>';
+					echo '<td>'.$row['CONTENT'].'</td>';
+					echo '<td class="score">'.( is_null($row['SCORE']) ? 'Pending' : $row['SCORE']).'</td>';
+					echo '<td>'.( empty($row['COMMENT']) ? '(No comment)' : $row['COMMENT']).'</td>';
+					echo '</tr>';
+				}
+				$result->free();
+				$stmt->close();
+			} else die('Error while preparing SQL');
+			?>
 		</tbody>
 	</table>
 </div>
