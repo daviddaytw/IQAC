@@ -12,10 +12,11 @@ DirectoryIndex	index.php
 	
 	# Disable hotlinking
 	RewriteCond %{HTTP_REFERER} !^$
-	RewriteCond %{HTTP_REFERER} !^http://(www.)?iqac.is-great.net(/)?.*$ [NC]
+	RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?iqac.is-great.net [NC]
+	RewriteRule ^(.*) [NC,R,L]
 	
-	# Direct access for assets, robots.txt, sitemap.xml
-	RewriteRule	^(assets|robots\.txt|sitemap\.xml) - [L]
+	# Direct access for assets, favicon.ico,robots.txt, sitemap.xml
+	RewriteRule	^(assets|favicon\.ico|robots\.txt|sitemap\.xml) - [L]
 	
 	RewriteRule	^(.*)$	index.php?page=$1	[QSA,L]
 </IfModule>
