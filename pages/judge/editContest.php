@@ -90,6 +90,7 @@ if(isset($_POST['judge'],$CONTEST_INFO)){
 				</thead>
 				<tbody>
 					<?
+//Get Judges of the contest
 					if ($stmt = $db->prepare("SELECT * FROM `Judges` WHERE CONTEST=?")) {
 						$stmt->bind_param("i",$CONTEST_INFO['ID']);
 						$stmt->execute();
