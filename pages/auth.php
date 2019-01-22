@@ -72,6 +72,7 @@ if($_SESSION['gateway'] == 'judge'){
 		$userinfo = apiRequest('https://www.googleapis.com/oauth2/v1/userinfo?alt=json');
 
 		// Got user information, login
+		if(empty($userinfo) || is_null($userinfo)) die("Error while requesting api");
 		$_SESSION['ID'] = $userinfo->id;
 		$_SESSION['NAME'] = $userinfo->name;
 		$_SESSION['ROLE'] = 'judge';
