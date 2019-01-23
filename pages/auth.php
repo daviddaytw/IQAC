@@ -18,35 +18,19 @@ if($_SESSION['gateway'] == 'participant'){
 	if(isset($_POST['contest'],$_POST['name'])){
 		unset($_SESSION['gateway']);
 
-		// Check contest existence and get contest name
-		if ($stmt = $db->prepare("SELECT * FROM `Contests` WHERE ID=?")) {
-			$stmt->bind_param("i",$_POST['contest']);
-			$stmt->execute();
-			$CONTEST_INFO_INFO = $stmt->get_result()->fetch_assoc();
-			$stmt->free_result();
-			$stmt->close();
-		} else die('Error while preparing SQL');
-		if($CONTEST_INFO_INFO == NULL) die("The contest you're trying to join do not exist.");
-		if( strtotime($CONTEST_INFO_INFO['FINISH']) < time()) die("The contest you're trying to join already finished.");
+		$CONTEST_INFO = getContest($_POST['contest']);
+		// Check contest existence
+		if( is_null($CONTEST_INFO)) die("The contest you're trying to join do not exist.");
+		if( strtotime($CONTEST_INFO['FINISH']) < time()) die("The contest you're trying to join had already finished.");
 
-		// Check participant name conflict
-		if ($stmt = $db->prepare("SELECT * FROM `Participants` WHERE CONTEST=? AND NAME=?")) {
-			$stmt->bind_param("is",$_POST['contest'],$_POST['name']);
-			$stmt->execute();
-			if($stmt->fetch()) die("Your nickname have been used by other participant, please change a new one.");
-			$stmt->close();
-		} else die('Error while preparing SQL');
+		if(existParticipantOfContest($_POST['contest'],$_POST['name'])) die("Your nickname have been used, please change a new one.");
 
 		// Create participant
-		if ($stmt = $db->prepare("INSERT INTO `Participants` (`NAME`,`CONTEST`) VALUES (?,?);")) {
-			$stmt->bind_param("si",$_POST['name'],$_POST['contest']);
-			$stmt->execute();
-			$stmt->close();
-		} else die('Error while preparing SQL');
+		createParticipant($_POST['name'],$CONTEST_INFO['ID']);
 		
 		$_SESSION['NAME'] = $_POST['name'];
 		$_SESSION['ROLE'] = 'participant';
-		$_SESSION['CONTEST'] = $CONTEST_INFO_INFO['ID'];
+		$_SESSION['CONTEST'] = $CONTEST_INFO['ID'];
 		$_SESSION['MENU'] = 'PARTICIPANT';
 		$_SESSION['ID'] = $db->insert_id;
 
@@ -92,18 +76,5 @@ if($_SESSION['gateway'] == 'judge'){
 		header('Location: ' . $authorizeURL . '?' . http_build_query($params));
 		exit;
 	}
-}
-
-function apiRequest($url, $post=FALSE) {
-	global $access_token;
-	$ch = curl_init($url);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-	if($post) curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
-	$headers[] = 'Accept: application/json';
-	if($access_token) $headers[] = 'Authorization: Bearer ' . $access_token;
-	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-	$response = curl_exec($ch);
-	curl_close($ch);
-	return json_decode($response);
 }
 ?>

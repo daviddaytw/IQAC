@@ -3,53 +3,26 @@ if(isset($CONTEST_INFO)) show_header('Edit '.$CONTEST_INFO['NAME'] , 'Edit');
 else show_header('New Conteset' , 'Create Contest');
 
 if(isset($_POST['name'])){
+	$begin = $_POST['beginDate'] . ' ' . $_POST['beginTime'];
+	$finish = $_POST['finishDate'] . ' ' . $_POST['finishTime'];
 	if(isset($CONTEST_INFO)){
 		//Edit contest
-		if ($stmt = $db->prepare("UPDATE `Contests` SET `NAME`=?,`BEGIN`=?,`FINISH`=? WHERE `ID`=?")) {
-			$begin = $_POST['beginDate'] . ' ' . $_POST['beginTime'];
-			$finish = $_POST['finishDate'] . ' ' . $_POST['finishTime'];
-			$stmt->bind_param("sssi",$_POST['name'],$begin,$finish,$CONTEST_INFO['ID']);
-			$stmt->execute();
-			$stmt->close();
-			$CONTEST_INFO['NAME'] = $_POST['name'];
-			$CONTEST_INFO['BEGIN'] = $begin;
-			$CONTEST_INFO['FINISH'] = $finish;
-		} else die('Error while preparing SQL');
+		updateContest($_POST['name'],$begin,$finish,$CONTEST_INFO['ID']);
+		$CONTEST_INFO['NAME'] = $_POST['name'];
+		$CONTEST_INFO['BEGIN'] = $begin;
+		$CONTEST_INFO['FINISH'] = $finish;
 	} else {
 		//Create contest
-		if ($stmt = $db->prepare("INSERT INTO `Contests` (`NAME`,`BEGIN`,`FINISH`) VALUES (?,?,?);")) {
-			$begin = $_POST['beginDate'] . ' ' . $_POST['beginTime'];
-			$finish = $_POST['finishDate'] . ' ' . $_POST['finishTime'];
-			$stmt->bind_param("sss",$_POST['name'],$begin,$finish);
-			$stmt->execute();
-			$stmt->close();
-		} else die('Error while preparing SQL');
+		createContest($_POST['name'],$begin,$finish);
 		$CONTEST_INFO_id = $db->insert_id;
-		// Link judge to the contest
-		if ($stmt = $db->prepare("INSERT INTO `Judges` (`JUDGE`,`CONTEST`) VALUES (?,?);")) {
-			$stmt->bind_param("si",$_SESSION['ID'],$CONTEST_INFO_id);
-			$stmt->execute();
-			$stmt->close();
-		} else die('Error while preparing SQL');
+		linkJudgeToContest($_SESSION['ID'],$CONTEST_INFO_id);
 	}
 }
 
 // edit judge link
 if(isset($_POST['judge'],$CONTEST_INFO)){
-	if($_POST['action'] == 'add'){
-		if ($stmt = $db->prepare("INSERT INTO `Judges` (`JUDGE`,`CONTEST`) VALUES (?,?);")) {
-			$stmt->bind_param("si",$_POST['judge'],$CONTEST_INFO['ID']);
-			$stmt->execute();
-			$stmt->close();
-		} else die('Error while preparing SQL');
-	}
-	if($_POST['action'] == 'remove'){
-		if ($stmt = $db->prepare("DELETE FROM `Judges`  WHERE `JUDGE`=? AND `CONTEST`=?")) {
-			$stmt->bind_param("si",$_POST['judge'],$CONTEST_INFO['ID']);
-			$stmt->execute();
-			$stmt->close();
-		} else die('Error while preparing SQL');
-	}
+	if($_POST['action'] == 'add') linkJudgeToContest($_POST['judge'],$CONTEST_INFO['ID']);
+	if($_POST['action'] == 'remove') delinkJudgeToContest($_POST['judge'],$CONTEST_INFO['ID']);
 }
 ?>
 <div class="pure-g">
@@ -89,22 +62,11 @@ if(isset($_POST['judge'],$CONTEST_INFO)){
 					<tr><th>Judge ID list</th></tr>
 				</thead>
 				<tbody>
-					<?
-//Get Judges of the contest
-					if ($stmt = $db->prepare("SELECT * FROM `Judges` WHERE CONTEST=?")) {
-						$stmt->bind_param("i",$CONTEST_INFO['ID']);
-						$stmt->execute();
-						$result = $stmt->get_result();
-
-						while( $row = $result->fetch_assoc() ){
-							echo '<tr>';
-							echo '<td>'.$row['JUDGE'].'</td>';
-							echo '</tr>';
-						}
-						$result->free();
-						$stmt->close();
-					} else die('Error while preparing SQL');
-					?>
+					<? foreach(getJudgesOfContest($CONTEST_INFO['ID']) as $row): ?>
+					<tr>
+						<td><?= $row['JUDGE'] ?></td>
+					</tr>
+					<? endforeach; ?>
 				</tbody>
 			</table>
 			<form class="pure-form pure-form-aligned" method="POST">

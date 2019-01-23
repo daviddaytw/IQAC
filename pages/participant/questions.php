@@ -5,33 +5,19 @@ if( strtotime($CONTEST_INFO['BEGIN']) > time() ){
 	show_footer();
 	exit;
 }
-	// Get questions
-$questions = array();
-if ($stmt = $db->prepare("SELECT * FROM `Questions` WHERE CONTEST=?")) {
-	$stmt->bind_param("i",$CONTEST_INFO['ID']);
-	$stmt->execute();
-	$result = $stmt->get_result();
-
-	while( ($row = $result->fetch_assoc()) != NULL ){
-			// If no specific, give the first one
-		if(!isset($_GET['id']) && empty($questions)) $_GET['id'] = $row['ID'];
-
-		$questions[$row['ID']] = $row['TITLE'];
-		if($_GET['id'] == $row['ID']) $content = $row['CONTENT'];
+// Get questions
+$questions = getQuestionsOfContest($CONTEST_INFO['ID']);
+if(isset($_GET['id'])){
+	$_GET['id'] = intval($_GET['id']);
+	if(in_array($_GET['id'], array_keys($questions))){
+		$current_question = getQuestion($_GET['id']);
+// Submit answer
+		if(isset($_SESSION['ID'],$_POST['answer'])){
+			createSubmission($_GET['id'],$_SESSION['ID'],$_POST['answer']);
+			header('Location: /submissions');
+			exit;
+		}
 	}
-	$result->free();
-	$stmt->close();
-} else die('Error while preparing SQL');
-
-	// Submit answer
-if(isset($content,$_GET['id'],$_POST['answer'])){
-	if ($stmt = $db->prepare("INSERT INTO `Submissions` (`PARTICIPANT`,`QUESTION`,`CONTENT`) VALUES (?,?,?);")) {
-		$stmt->bind_param("sis",$_SESSION['ID'],$_GET['id'],$_POST['answer']);
-		$stmt->execute();
-		$stmt->close();
-	} else die('Error while preparing SQL');
-	header('Location: /submissions');
-	exit;
 }
 
 show_header($questions[$_GET['id']] , 'Questions');
@@ -56,8 +42,9 @@ show_header($questions[$_GET['id']] , 'Questions');
 
 	<div class="pure-u-1 pure-u-md-5-6">
 		<div class="panel">
-			<h1><?= htmlentities($questions[$_GET['id']]) ?></h1>
-			<div><?= $content ?></div>
+<? if(isset($current_question)): ?>
+			<h1><?= htmlentities($current_question['TITLE']) ?></h1>
+			<div><?= $current_question['CONTENT'] ?></div>
 			<form class="pure-form pure-form-stacked" method="POST">
 				<fieldset>
 					<legend>Your Answer</legend>
@@ -65,6 +52,7 @@ show_header($questions[$_GET['id']] , 'Questions');
 					<button type="submit" class="pure-button pure-button-primary">Submit</button>
 				</fieldset>
 			</form>
+<? endif; ?>
 		</div>
 	</div>
 </div>

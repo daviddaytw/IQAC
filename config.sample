@@ -16,4 +16,27 @@ if (!$db) {
     echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
     die("Error: Unable to connect to MySQL.");
 }
+
+// Menu for each user role (optional to configure)
+$MENUS = array(
+	'JUDGE_DEFAULT' => array(
+		'Contests' => '/',
+		'Create Contest' => '/editContest',
+		'Logout' => '/auth' 
+	),
+	'JUDGE_CONTEST' => array(
+		'ScoreBoard' => '/',
+		'Submissions' => '/submissions',
+		'Questions' => '/questions',
+		'Edit' => '/editContest',
+		'Exit' => '/?contest=exit',
+		'Logout' => '/auth'
+	),
+	'PARTICIPANT' => array(
+		'ScoreBoard' => '/',
+		'Questions' => '/questions',
+		'Submissions' => '/submissions',
+		'Logout' => '/auth'
+	)
+);
 ?>
