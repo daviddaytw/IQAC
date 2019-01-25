@@ -56,7 +56,12 @@ if($_SESSION['gateway'] == 'judge'){
 		$userinfo = apiRequest('https://www.googleapis.com/oauth2/v1/userinfo?alt=json');
 
 		// Got user information, login
-		if(empty($userinfo) || is_null($userinfo)) die("Error while requesting api");
+		if(empty($userinfo)) die("Error while requesting api");
+
+		// Update account if exist, otherwise create
+		if(empty(getAccount($userinfo->id))) createAccount($userinfo->id,$userinfo->name,$userinfo->picture);
+		else updateAccount($userinfo->id,$userinfo->name,$userinfo->picture);
+		
 		$_SESSION['ID'] = $userinfo->id;
 		$_SESSION['NAME'] = $userinfo->name;
 		$_SESSION['ROLE'] = 'judge';

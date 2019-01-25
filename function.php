@@ -13,6 +13,38 @@ function apiRequest($url, $post=FALSE) {
 	return json_decode($response);
 }
 
+function createAccount($id,$name,$image){
+	global $db;
+	if ($stmt = $db->prepare("INSERT INTO `Accounts` (`ID`,`NAME`,`GOOGLE_IMAGE`) VALUES (?,?,?);")) {
+		$stmt->bind_param("sss",$id,$name,$image);
+		$stmt->execute();
+		$stmt->close();
+	} else die('Error while preparing SQL');
+}
+
+function getAccount($id){
+	global $db;
+	$result = NULL;
+	if ($stmt = $db->prepare("SELECT * FROM `Accounts` WHERE ID=?")) {
+		$stmt->bind_param("s",$id);
+		$stmt->execute();
+		$result = $stmt->get_result()->fetch_assoc();
+		$stmt->free_result();
+		$stmt->close();
+	} else die('Error while preparing SQL');
+	return $result;
+}
+
+function updateAccount($id,$name,$image){
+	global $db;
+	if ($stmt = $db->prepare("UPDATE `Accounts` SET `NAME`=?,`GOOGLE_IMAGE`=? WHERE `ID`=?")) {
+		$stmt->bind_param("sss",$name,$image,$id);
+		$stmt->execute();
+		$stmt->close();
+	} else die('Error while preparing SQL');
+}
+
+
 /* Participant */
 function createParticipant($name,$id){
 	global $db;
