@@ -59,12 +59,14 @@ if(isset($_POST['judge'],$CONTEST_INFO)){
 		<div class="pure-u-1 pure-u-md-1-2">
 			<table class="pure-table">
 				<thead>
-					<tr><th>Judge ID list</th></tr>
+					<tr><th>Judge ID</th><th>Judge Name</th></tr>
 				</thead>
 				<tbody>
 					<? foreach(getJudgesOfContest($CONTEST_INFO['ID']) as $row): ?>
 					<tr>
 						<td><?= $row['JUDGE'] ?></td>
+						<? $account = getAccount($row['JUDGE']) ?>
+						<td><img class="img-icon" src="<?= $account['GOOGLE_IMAGE'] ?>"><?= $account['NAME'] ?></td>
 					</tr>
 					<? endforeach; ?>
 				</tbody>

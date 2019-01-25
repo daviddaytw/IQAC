@@ -11,6 +11,7 @@ if(isset($_GET['id'])){
 	$_GET['id'] = intval($_GET['id']);
 	if(in_array($_GET['id'], array_keys($questions))){
 		$current_question = getQuestion($_GET['id']);
+		$question_judge = getAccount($current_question['JUDGE']);
 // Submit answer
 		if(isset($_SESSION['ID'],$_POST['answer'])){
 			createSubmission($_GET['id'],$_SESSION['ID'],$_POST['answer']);
@@ -45,6 +46,9 @@ show_header($questions[$_GET['id']] , 'Questions');
 <? if(isset($current_question)): ?>
 			<h1><?= htmlentities($current_question['TITLE']) ?></h1>
 			<div><?= $current_question['CONTENT'] ?></div>
+			<i>Judge:&nbsp;<img class="img-icon" src="<?= $question_judge['GOOGLE_IMAGE'] ?>"><?= $question_judge['NAME'] ?></i>
+
+
 			<form class="pure-form pure-form-stacked" method="POST">
 				<fieldset>
 					<legend>Your Answer</legend>

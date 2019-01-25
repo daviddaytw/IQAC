@@ -46,9 +46,9 @@ else show_header('Questions' , 'Questions');
 					<select id="judge" name="judge">
 						<? foreach( getJudgesOfContest($CONTEST_INFO['ID']) as $row ): ?>
 							<? if( $row['JUDGE'] == $selected_question['JUDGE']): ?> 
-								<option value="<?= $row['JUDGE'] ?>" selected><?= $row['JUDGE'] ?></option>
+								<option value="<?= $row['JUDGE'] ?>" selected><?= getAccount($row['JUDGE'])['NAME'] ?></option>
 							<? else: ?>
-								<option value="<?= $row['JUDGE'] ?>"><?= $row['JUDGE'] ?></option>
+								<option value="<?= $row['JUDGE'] ?>"><?= getAccount($row['JUDGE'])['NAME'] ?></option>
 							<? endif; ?>
 						<? endforeach; ?>
 					</select>
