@@ -10,7 +10,6 @@ SET time_zone = "+00:00";
 CREATE TABLE `Accounts` (
   `ID` text NOT NULL,
   `NAME` text NOT NULL,
-  `EMAIL` text NOT NULL,
   `GOOGLE_IMAGE` text NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
