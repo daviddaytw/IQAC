@@ -304,6 +304,16 @@ function show_header($title,$menu_select=NULL){
 	<!DOCTYPE html>
 	<html>
 	<head>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-133223223-1"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+
+		  gtag('config', 'UA-133223223-1');
+		</script>
+
 		<title><?= htmlentities($title) ?> - IQAC</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta http-equiv="Content-Language" content="en-US">
