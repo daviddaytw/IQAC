@@ -19,3 +19,10 @@ a{
 	overflow-x: auto;
 	-webkit-overflow-scrolling: touch;
 }
+
+.img-icon {
+	display: inline;
+	vertical-align: middle;
+	height: 36px;
+	padding: 0px 4px 0px 8px;
+}
