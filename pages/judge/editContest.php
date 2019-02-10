@@ -66,7 +66,7 @@ if(isset($_POST['judge'],$CONTEST_INFO)){
 					<tr>
 						<td><?= $row['JUDGE'] ?></td>
 						<? $account = getAccount($row['JUDGE']) ?>
-						<td><img class="img-icon" src="<?= $account['GOOGLE_IMAGE'] ?>"><?= $account['NAME'] ?></td>
+						<td><?= $account['NAME'] ?></td>
 					</tr>
 					<? endforeach; ?>
 				</tbody>

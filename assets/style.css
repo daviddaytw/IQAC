@@ -4,6 +4,11 @@ a{
 	color: #0fa3a8;
 	text-decoration: none;
 }
+img {
+	display: inline;
+	vertical-align: middle;
+	padding: 0px 8px 0px 8px;
+}
 
 .menu-wrapper {
 	font-size: 20px;
@@ -20,9 +25,3 @@ a{
 	-webkit-overflow-scrolling: touch;
 }
 
-.img-icon {
-	display: inline;
-	vertical-align: middle;
-	height: 36px;
-	padding: 0px 4px 0px 8px;
-}

@@ -1,10 +1,5 @@
 <?
 //Define api URL
-$authorizeURL = 'https://accounts.google.com/o/oauth2/auth';
-$tokenURL = 'https://oauth2.googleapis.com/token';
-$access_token = false;
-
-
 if(isset($_SESSION['ID'])){
 	session_unset();
 	header('Location: http://' . $_SERVER['HTTP_HOST']);
@@ -35,7 +30,7 @@ if($_SESSION['gateway'] == 'participant'){
 		$_SESSION['ID'] = $db->insert_id;
 
 		header('Location: http://' . $_SERVER['HTTP_HOST']);
-		exit; 
+		exit;
 	} else {
 		require('participant/register.php');
 	}
@@ -44,42 +39,28 @@ if($_SESSION['gateway'] == 'participant'){
 // Login is required for Judge
 if($_SESSION['gateway'] == 'judge'){
 	//Process returned code
-	if (isset($_GET['code'])) {
-		$token = apiRequest($tokenURL, array(
-			'client_id' => $OAUTH2_CLIENT_ID,
-			'client_secret' => $OAUTH2_CLIENT_SECRET,
-			'redirect_uri' => "http://$_SERVER[SERVER_NAME]/auth",
-			'grant_type' => 'authorization_code',
-			'code' => $_GET['code']
-		));
-		$access_token = $token->access_token;
-		$userinfo = apiRequest('https://www.googleapis.com/oauth2/v1/userinfo?alt=json');
-
-		// Got user information, login
-		if(empty($userinfo)) die("Error while requesting api");
-
-		// Update account if exist, otherwise create
-		if(empty(getAccount($userinfo->id))) createAccount($userinfo->id,$userinfo->name,$userinfo->picture);
-		else updateAccount($userinfo->id,$userinfo->name,$userinfo->picture);
-		
-		$_SESSION['ID'] = $userinfo->id;
-		$_SESSION['NAME'] = $userinfo->name;
-		$_SESSION['ROLE'] = 'judge';
-		$_SESSION['MENU'] = 'JUDGE_DEFAULT';
+	if(isset($_POST['name'],$_POST['password'],$_POST['action'])){
 		unset($_SESSION['gateway']);
 
+		switch($_POST['action']){
+			case 'signup':
+				if( !empty(existAccount($_POST['name'])) ) die("Account Already exist");
+				createAccount($_POST['name'],$_POST['password']);
+			case 'login':
+				$userinfo = authAccount($_POST['name'],$_POST['password']);
+				if( empty($userinfo) ) die("Username or Password is Wrong");
+			break;
+		}
+
+		$_SESSION['ID'] = $userinfo['ID'];
+		$_SESSION['NAME'] = $userinfo['NAME'];
+		$_SESSION['ROLE'] = 'judge';
+		$_SESSION['MENU'] = 'JUDGE_DEFAULT';
+
 		header('Location: http://' . $_SERVER['HTTP_HOST']);
-		exit; 
-	} else{
-		//Redirect User to Google login page
-		$params = array(
-			'client_id' => $OAUTH2_CLIENT_ID,
-			'redirect_uri' => "http://$_SERVER[SERVER_NAME]/auth",
-			'response_type' => 'code',
-			'scope' => 'https://www.googleapis.com/auth/userinfo.profile'
-		);
-		header('Location: ' . $authorizeURL . '?' . http_build_query($params));
 		exit;
+	} else {
+		require('judge/register.php');
 	}
 }
 ?>

@@ -46,7 +46,7 @@ show_header($questions[$_GET['id']] , 'Questions');
 <? if(isset($current_question)): ?>
 			<h1><?= htmlentities($current_question['TITLE']) ?></h1>
 			<div><?= $current_question['CONTENT'] ?></div>
-			<i>Judge:&nbsp;<img class="img-icon" src="<?= $question_judge['GOOGLE_IMAGE'] ?>"><?= $question_judge['NAME'] ?></i>
+			<i>Judge:&nbsp;<?= $question_judge['NAME'] ?></i>
 
 
 			<form class="pure-form pure-form-stacked" method="POST">

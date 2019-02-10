@@ -12,7 +12,7 @@ DirectoryIndex	index.php
 	
 	# Disable hotlinking
 	RewriteCond %{HTTP_REFERER} !^$
-	RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?iqac.is-great.net [NC]
+	RewriteCond %{HTTP_REFERER} !^https://iqac.sourceforge.io [NC]
 	RewriteRule ^(.*) [NC,R,L]
 	
 	# Direct access for assets, favicon.ico,robots.txt, sitemap.xml
