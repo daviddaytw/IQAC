@@ -4,16 +4,18 @@ Options	+FollowSymLinks
 # Set default rewrite destination
 DirectoryIndex	index.php
 
+# Security Headers
+<IfModule mod_headers.c>
+	Header set X-XSS-Protection "1; mode=block"
+	Header always append X-Frame-Options SAMEORIGIN
+	Header set X-Content-Type-Options nosniff
+</IfModule>
+
 # Process URL rewrite
 <IfModule	mod_rewrite.c>
 	RewriteEngine on
 	
 	RewriteBase	/
-	
-	# Disable hotlinking
-	RewriteCond %{HTTP_REFERER} !^$
-	RewriteCond %{HTTP_REFERER} !^https://iqac.sourceforge.io [NC]
-	RewriteRule ^(.*) [NC,R,L]
 	
 	# Direct access for assets, favicon.ico,robots.txt, sitemap.xml
 	RewriteRule	^(assets|favicon\.ico|robots\.txt|sitemap\.xml) - [L]
