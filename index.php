@@ -3,6 +3,28 @@
 require('config.php');
 require('function.php');
 
+$MENUS = array(
+	'JUDGE_DEFAULT' => array(
+		'Contests' => '/',
+		'Create Contest' => '/editContest',
+		'Logout' => '/auth' 
+	),
+	'JUDGE_CONTEST' => array(
+		'ScoreBoard' => '/',
+		'Submissions' => '/submissions',
+		'Questions' => '/questions',
+		'Edit' => '/editContest',
+		'Exit' => '/?contest=exit',
+		'Logout' => '/auth'
+	),
+	'PARTICIPANT' => array(
+		'ScoreBoard' => '/',
+		'Questions' => '/questions',
+		'Submissions' => '/submissions',
+		'Logout' => '/auth'
+	)
+);
+
 session_start();
 
 /** CONFIGURATION SETUP END **/
