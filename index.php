@@ -6,16 +6,15 @@ require('function.php');
 $MENUS = array(
 	'JUDGE_DEFAULT' => array(
 		'Contests' => '/',
-		'Create Contest' => '/editContest',
-		'Logout' => '/auth' 
+		'Create Contest' => '/configContest',
+		'Logout' => '/auth'
 	),
 	'JUDGE_CONTEST' => array(
 		'ScoreBoard' => '/',
 		'Submissions' => '/submissions',
 		'Questions' => '/questions',
-		'Edit' => '/editContest',
-		'Exit' => '/?contest=exit',
-		'Logout' => '/auth'
+		'Configure' => '/configContest',
+		'Exit' => '/?contest=exit'
 	),
 	'PARTICIPANT' => array(
 		'ScoreBoard' => '/',
