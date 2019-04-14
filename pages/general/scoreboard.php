@@ -24,7 +24,11 @@ arsort($rank);
 <? endif; ?>
 
 <? if($_SESSION['ROLE'] == 'judge'): ?>
-<h2>Contest&nbsp;ID:&nbsp;<?= $CONTEST_INFO['ID'] ?></h2>
+<h2>
+	<a href="https://<?= $_SERVER['REQUEST_URI'] ?>/auth?Contest=<?= $CONTEST_INFO['ID'] ?>">
+		Contest ID: <?= $CONTEST_INFO['ID'] ?>
+	</a>
+</h2>
 <? endif; ?>
 
 <div class="table-responsive">

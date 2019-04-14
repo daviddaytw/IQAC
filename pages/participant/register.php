@@ -4,7 +4,7 @@
 		<fieldset>
 			<div class="pure-control-group">
 				<label for="contest">Contest ID</label>
-				<input id="contest" name="contest" type="text" placeholder="8787" required>
+				<input id="contest" name="contest" type="text" placeholder="8787" value="<?= $_GET['Contest'] ?>"required>
 			</div>
 
 			<div class="pure-control-group">
