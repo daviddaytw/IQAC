@@ -2,7 +2,7 @@
 
 <? if($_SESSION['ROLE'] == 'judge'): ?>
 <h2>
-	<a href="https://<?= $_SERVER['REQUEST_URI'] ?>/auth?Contest=<?= $CONTEST_INFO['ID'] ?>">
+	<a href="https://<?= $_SERVER['SERVER_HOST'] ?>/auth?Contest=<?= $CONTEST_INFO['ID'] ?>">
 		Contest ID: <?= $CONTEST_INFO['ID'] ?>
 	</a>
 </h2>
