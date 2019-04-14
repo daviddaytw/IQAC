@@ -1,5 +1,5 @@
 <?
-if(isset($CONTEST_INFO)) show_header('Edit '.$CONTEST_INFO['NAME'] , 'Edit');
+if(isset($CONTEST_INFO)) show_header('Configuring '.$CONTEST_INFO['NAME'] , 'Configure');
 else show_header('New Conteset' , 'Create Contest');
 
 if(isset($_POST['name'])){
