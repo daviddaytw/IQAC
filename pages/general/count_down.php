@@ -1,11 +1,7 @@
 <h1>Contest has not start yet!!</h1>
 
 <? if($_SESSION['ROLE'] == 'judge'): ?>
-<h2>
-	<a href="https://<?= $_SERVER['HTTP_HOST'] ?>/auth?Contest=<?= $CONTEST_INFO['ID'] ?>">
-		Contest ID: <?= $CONTEST_INFO['ID'] ?>
-	</a>
-</h2>
+<h2>Contest ID: <?= $CONTEST_INFO['ID'] ?></h2>
 <? endif; ?>
 
 <h2 id="count_down"><?= strtotime($CONTEST_INFO['BEGIN'])-time() ?></h2>

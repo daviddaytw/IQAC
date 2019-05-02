@@ -25,6 +25,10 @@ if(isset($_POST['judge'],$CONTEST_INFO)){
 	if($_POST['action'] == 'remove') delinkJudgeToContest($_POST['judge'],$CONTEST_INFO['ID']);
 }
 ?>
+<p>
+	Contest link for participants:
+	<i><?= htmlentities('https://'.$_SERVER['HTTP_HOST'].'/auth?Contest='.$CONTEST_INFO['ID']) ?></i>
+</p>
 <div class="pure-g">
 	<div class="pure-u-1 pure-u-md-1-2">
 		<form class="pure-form pure-form-aligned" method="POST">
