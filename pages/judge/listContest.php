@@ -3,8 +3,10 @@ show_header('Welcome, '.$_SESSION['NAME'] , 'Contests');
 $contest = getContestsOfJudge($_SESSION['ID']);
 ?>
 <div class="pure-g panel">
-
-	<div class="pure-u-1"><h1>Contests that you're judge</h1></div>
+	<div class="pure-u-1">
+		<h1>Your Contest</h1>
+		<h2>Judge ID: <?= $_SESSION['ID'] ?></h1>
+	</div>
 	<div class="pure-u-1 table-responsive">
 		<table class="pure-table">
 			<thead>
