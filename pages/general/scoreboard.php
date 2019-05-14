@@ -50,5 +50,7 @@ arsort($rank);
 </table>
 </div>
 <script>
-	setTimeout(function(){ location = '' }, 20000);
+	setInterval( function(){
+        if(!document.hidden) location = '';
+    }, 20000);
 </script>

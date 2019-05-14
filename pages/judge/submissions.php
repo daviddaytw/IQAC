@@ -65,7 +65,9 @@ if(isset($_GET['id'])){
 				</form>
 			<? else: ?>
 				<script>
-					setTimeout(function(){ location = '' }, 5000);
+					setInterval( function(){
+                        if(!document.hidden) location = '';
+                    }, 5000);
 				</script>
 			<? endif; ?>
 		</div>
