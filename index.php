@@ -29,11 +29,18 @@ session_start();
 /** CONFIGURATION SETUP END **/
 
 /** LOCALIZATION SETUP START**/
-if(isset($_GET['timezone'])) $_SESSION['TIMEZONE'] = $_GET['timezone'];
 if(isset($_SESSION['TIMEZONE'])){
 	date_default_timezone_set($_SESSION['TIMEZONE']);
+} else if(isset($_GET['timezone'])){
+    $_SESSION['TIMEZONE'] = $_GET['timezone'];
+    header("Location: ".$_GET['redirect']);
+    exit;
 } else {
-	echo '<script>window.location = "?timezone="+encodeURI(Intl.DateTimeFormat().resolvedOptions().timeZone);</script>';
+	echo '<script>'.
+        'window.location = '.
+        '"?timezone="+encodeURIComponent(Intl.DateTimeFormat().resolvedOptions().timeZone)+'.
+        '"&redirect="+encodeURIComponent(window.location.href);'.
+    '</script>';
 	exit;
 }
 /** LOCALIZATION SETUP END **/
