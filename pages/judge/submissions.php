@@ -59,7 +59,7 @@ if(isset($_GET['id'])){
 						<label for="score">Score</label>
 						<input id="score" name="score" type="number" min="0" max="100">
 						<label for="comment">Comment</label>
-						<textarea id="comment" name="comment"></textarea>
+						<input type="text" id="comment" name="comment" placeholder="Optional"></input>
 						<button type="submit" class="pure-button pure-button-primary">Submit</button>
 					</fieldset>
 				</form>
