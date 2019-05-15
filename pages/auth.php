@@ -24,7 +24,7 @@ if($_SESSION['gateway'] == 'participant'){
 		if( is_null($profile) ){
             createParticipant($_POST['name'],$_POST['password'],$CONTEST_INFO['ID']);
 		}
-		if( $profile['PASSWORD'] !== sha1($_POST['password'])){
+		else if( $profile['PASSWORD'] !== sha1($_POST['password'])){
             die('Password incorrect');
 		}
 
