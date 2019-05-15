@@ -16,18 +16,26 @@ if($_SESSION['gateway'] == 'participant'){
 		$CONTEST_INFO = getContest($_POST['contest']);
 		// Check contest existence
 		if( is_null($CONTEST_INFO)) die("The contest you're trying to join do not exist.");
-		if( strtotime($CONTEST_INFO['FINISH']) < time()) die("The contest you're trying to join had already finished.");
 
-		if(existParticipantOfContest($_POST['contest'],$_POST['name'])) die("Your nickname have been used, please change a new one.");
-
-		// Create participant
-		createParticipant($_POST['name'],$CONTEST_INFO['ID']);
+		// Auth participant if exist
+		$profile = getParticipant($CONTEST_INFO['ID'],$_POST['name']);
 		
-		$_SESSION['NAME'] = $_POST['name'];
+		// Create participant if not used
+		if( is_null($profile) ){
+            createParticipant($_POST['name'],$_POST['password'],$CONTEST_INFO['ID']);
+		}
+		if( $profile['PASSWORD'] !== sha1($_POST['password'])){
+            die('Password incorrect');
+		}
+
+		
+		$profile = getParticipant($CONTEST_INFO['ID'],$_POST['name']);
+		
+		$_SESSION['NAME'] = $profile['NAME'];
+		$_SESSION['CONTEST'] = $profile['CONTEST'];
+		$_SESSION['ID'] = $profile['ID'];
 		$_SESSION['ROLE'] = 'participant';
-		$_SESSION['CONTEST'] = $CONTEST_INFO['ID'];
 		$_SESSION['MENU'] = 'PARTICIPANT';
-		$_SESSION['ID'] = $db->insert_id;
 
 		header('Location: http://' . $_SERVER['HTTP_HOST']);
 		exit;

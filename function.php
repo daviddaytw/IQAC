@@ -49,21 +49,23 @@ function getAccount($id){
 }
 
 /* Participant */
-function createParticipant($name,$id){
+function createParticipant($name,$password,$id){
 	global $db;
-	if ($stmt = $db->prepare("INSERT INTO `Participants` (`CONTEST`,`NAME`) VALUES (?,?);")) {
-		$stmt->bind_param("is",$id,$name);
+	$password = sha1($password);
+	if ($stmt = $db->prepare("INSERT INTO `Participants` (`CONTEST`,`NAME`,`PASSWORD`) VALUES (?,?,?);")) {
+		$stmt->bind_param("iss",$id,$name,$password);
 		$stmt->execute();
 		$stmt->close();
 	} else die('Error while preparing SQL');
 }
 
-function existParticipantOfContest($id,$name){
+function getParticipant($id,$name){
 	global $db;
 	if ($stmt = $db->prepare("SELECT * FROM `Participants` WHERE CONTEST=? AND NAME=?")) {
 		$stmt->bind_param("is",$id,$name);
 		$stmt->execute();
-		$result = $stmt->fetch();
+		$result = $stmt->get_result()->fetch_assoc();
+		$stmt->free_result();
 		$stmt->close();
 	} else die('Error while preparing SQL');
 	return $result;
