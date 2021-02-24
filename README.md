@@ -1,42 +1,47 @@
+# IQAC
+
 IQAC is a instant contest platform for real-time answering. A little bit similar to Kahoot.
 
-# Features
+[![Netlify Status](https://api.netlify.com/api/v1/badges/84b38cd4-72c3-43f7-a3ed-ff2912aaaa49/deploy-status)](https://app.netlify.com/sites/iqac/deploys)
+
+## Features
 - Clean Design
 - Interactive
 - Real-Time Contest
 - Multi-Judges
 
-# How to use
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-The judges must create a account. One of the judges could create a contest and add other judges in.
-*Judges should edit questions before contest.*
+## Available Scripts
 
-The participants does not need to create account, just sign up to contest by id about 1~5 minutes before start.
+In the project directory, you can run:
 
-In the contest, judges need to score (and comment) the submissions of participants. The rank would be real-time update in the scoreboard.
+### `npm start`
 
-# Contributing Guide
-Since this is an open source project, any contributing is welcome !!
-Although contributing is encouraged, it's better to discuss what you want to contribute in the issue first.
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-# Environment Setup
-1. Create an Mysql user and Database.
-2. Download or clone the repository.
-3. Import `db_strucutre.sql` to your MySQL.
-4. edit the follownig code and save to `config.php` in the root.
-```php
-<?
-ini_set('display_errors',1);
-ini_set('default_charset', 'UTF-8');
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-// Database Setup
-// Change the following to setup for database
-$db = mysqli_connect('DB HOST','DB USER','DB PASSWORD','DB NAME');
-if (!$db) {
-    echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
-    echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
-    die("Error: Unable to connect to MySQL.");
-}
-?>
-```
-5. Upload to your web server.
+### `npm test`
+
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm run build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
