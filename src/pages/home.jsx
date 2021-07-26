@@ -29,20 +29,18 @@ export default function Home() {
   const history = useHistory();
   const logIn = async () => {
     try {
-      const user = await Parse.FacebookUtils.logIn('public_profile,email');
-      if (!user.existed()) {
-        FB.api('/me?fields=id,name,email,permissions', (response) => {
-          user.set('username', response.name);
-          user.set('email', response.email);
+      const user = await Parse.FacebookUtils.logIn('gaming_profile,email');
+      // Update user data.
+      FB.api('/me?fields=name,email,picture', (response) => {
+        user.set('username', response.name);
+        user.set('email', response.email);
+        user.set('avatarUrl', response.picture.data.url);
 
-          user.save().then(() => {
-            history.go(0);
-          });
+        user.save().then(() => {
+          history.go(0);
         });
-      } else {
-        history.go(0);
-      }
-    } catch (error) {
+      });
+    } catch (err) {
       alert('User cancelled the Facebook login or did not fully authorize.');
     }
   };
