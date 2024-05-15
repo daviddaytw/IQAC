@@ -1,42 +1,37 @@
+# Instant Q&A Contest
+
 IQAC is a instant contest platform for real-time answering. A little bit similar to Kahoot.
 
-# Features
+## Features
 - Clean Design
 - Interactive
 - Real-Time Contest
 - Multi-Judges
 
-# How to use
+## Getting Started
 
-The judges must create a account. One of the judges could create a contest and add other judges in.
-*Judges should edit questions before contest.*
+IQAC use Laravel Framework.
 
-The participants does not need to create account, just sign up to contest by id about 1~5 minutes before start.
+### About Laravel
 
-In the contest, judges need to score (and comment) the submissions of participants. The rank would be real-time update in the scoreboard.
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+
+### Learning Laravel
+
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+
+You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
 # Contributing Guide
 Since this is an open source project, any contributing is welcome !!
 Although contributing is encouraged, it's better to discuss what you want to contribute in the issue first.
-
-# Environment Setup
-1. Create an Mysql user and Database.
-2. Download or clone the repository.
-3. Import `db_strucutre.sql` to your MySQL.
-4. edit the follownig code and save to `config.php` in the root.
-```php
-<?
-ini_set('display_errors',1);
-ini_set('default_charset', 'UTF-8');
-
-// Database Setup
-// Change the following to setup for database
-$db = mysqli_connect('DB HOST','DB USER','DB PASSWORD','DB NAME');
-if (!$db) {
-    echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
-    echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
-    die("Error: Unable to connect to MySQL.");
-}
-?>
-```
-5. Upload to your web server.
